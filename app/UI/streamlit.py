@@ -75,24 +75,4 @@ if st.button("🚀 Predict Performance Score", use_container_width=True):
             else:
                 st.error(f"❌ Error {response.status_code}: {response.text}")
         except requests.exceptions.ConnectionError:
-            st.error("❌ Could not connect to FastAPI server. Kya aapka backend run ho raha hai?")
-
-
-
-
-
-# if st.button("Know Your Predicted Marks"):
-#     payload = {
-#         "gender":gender,
-#         "age": age,
-#         "resoures": Resourses,
-#         "scores": score,
-#         "study_time": study_time
-#     }
-#     backend_url = "http://127.0.0.1:8000/predict"
-#     response = requests.post(backend_url, json=payload)
-#     if response.status_code == 200:
-#         result = response.json()
-#         st.success(f"🎯 Prediction Received: {result['predicted_mark']:.2f}")
-#     else:
-#         st.error("Backend server se connect nahi ho paya!")
+            st.error("❌ Could not connect to FastAPI server")

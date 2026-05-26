@@ -4,10 +4,19 @@ import joblib
 from schema.model_validation import StudentPerformance,PredictionResponse
 from typing import List
 import asyncio
+from fastapi.middleware.cors import CORSMiddleware
 
 model_lr = joblib.load("model.pkl")
 
 app = FastAPI(title = "Student Mark Predictor")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
