@@ -61,18 +61,25 @@ if st.button("🚀 Predict Performance Score", use_container_width=True):
         "Distance_from_Home": distance_from_home
     }
 
-    api_url = "http://127.0.0.1:8000/predict"
+    api_url = "https://student-performance-project-1.onrender.com/predict"
 
     with st.spinner("Calculating performance score via API..."):
         try:
-            response = requests.post(api_url, json=[payload])
+            response = requests.post(api_url, json=payload)
+
+            st.write("Status Code:", response.status_code)
+            st.write("Response Text:", response.text)
+
             if response.status_code in [200, 201]:
                 result = response.json()
+
                 predicted_score = result["Predicted_Mark"][0]
                 final_score = round(predicted_score, 2)
+
                 st.success(f"🎯 Predicted Student Performance Score: **{final_score}**")
-                st.balloons()
+
             else:
-                st.error(f"❌ Error {response.status_code}: {response.text}")
-        except requests.exceptions.ConnectionError:
-            st.error("❌ Could not connect to FastAPI server")
+                st.error(f"❌ Error {response.status_code}")
+
+        except Exception as e:
+            st.error(f"REAL ERROR: {e}")
