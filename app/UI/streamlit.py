@@ -65,7 +65,7 @@ if st.button("🚀 Predict Performance Score", use_container_width=True):
 
     with st.spinner("Calculating performance score via API..."):
         try:
-            response = requests.post(api_url, json=payload)
+            response = requests.post(api_url, json=[payload])
 
             st.write("Status Code:", response.status_code)
             st.write("Response Text:", response.text)
