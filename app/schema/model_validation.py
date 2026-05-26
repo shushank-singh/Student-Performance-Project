@@ -1,5 +1,5 @@
 from pydantic import BaseModel,Field,field_validator,model_validator,computed_field
-from typing import Annotated
+from typing import Annotated,List
 from enum import Enum
 
 class GENDER(str,Enum):
@@ -100,4 +100,8 @@ class StudentPerformance(BaseModel):
 
 class PredictionResponse(BaseModel):
     status : str
-    Predicted_Mark : float
+    Total_Records : int
+    Predicted_Mark: List[
+        Annotated[float, Field(ge=0.0, le=100.0)]
+    ]
+

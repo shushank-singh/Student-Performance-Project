@@ -22,15 +22,17 @@ app.add_middleware(
 def root():
     return {"messege":"Your Student Marks Predictor API Ready !!"}
 
-@app.post("/predict",status_code=201)
+@app.post("/predict",status_code=201,response_model=PredictionResponse)
 async def Predict_Mark(student :List[StudentPerformance]):
     await asyncio.sleep(1)
     data_dict = [s.model_dump() for s in student]
     input_features = pd.DataFrame(data_dict)
     prediction = model_lr.predict(input_features)
 
+    prediction = [round(min(max(float(x), 0), 100),2) for x in prediction]
+
     return {
         "status":"Successfull",
         "Total_Records": len(data_dict),
-        "Predicted_Mark": prediction.tolist()
+        "Predicted_Mark": prediction
     }
